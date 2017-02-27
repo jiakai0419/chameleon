@@ -11,7 +11,8 @@ public class Main {
 
     public static void main(String[] args) {
         ImageConvertor convertor = new OriginalImageConvertor();
-        convertor.convert("a.png", "b.png");
+        convertor.convert("qrcode.png", "qrcode_alpha.png");
+        convertor.convert("panda.jpg", "panda_alpha.jpg");
     }
 
 }

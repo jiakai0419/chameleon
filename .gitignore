@@ -17,3 +17,8 @@ hs_err_pid*
 
 # maven
 target
+
+# image
+*.jpg
+*.png
+
