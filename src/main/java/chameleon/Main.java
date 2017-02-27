@@ -1,8 +1,7 @@
 package chameleon;
 
 import chameleon.convertor.image.ImageConvertor;
-import chameleon.convertor.image.impl.PNGConvertor;
-
+import chameleon.convertor.image.impl.OriginalImageConvertor;
 
 /**
  * @Author KaiJia
@@ -11,8 +10,8 @@ import chameleon.convertor.image.impl.PNGConvertor;
 public class Main {
 
     public static void main(String[] args) {
-        ImageConvertor convertor = new PNGConvertor();
-        convertor.convert("/Users/jiakai/Downloads/a.png", "/Users/jiakai/Downloads/b.png");
+        ImageConvertor convertor = new OriginalImageConvertor();
+        convertor.convert("a.png", "b.png");
     }
 
 }

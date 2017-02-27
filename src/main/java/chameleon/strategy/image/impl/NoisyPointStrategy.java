@@ -1,40 +1,37 @@
 package chameleon.strategy.image.impl;
 
-import chameleon.strategy.image.PNGStrategy;
+import chameleon.strategy.image.ImageStrategy;
 
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 /**
  * @Author KaiJia
- * @DATE 2017-02-24
+ * @DATE 2017-02-27
  */
-public class NoisyPointStrategy implements PNGStrategy {
-    private static final int SCALE_MAX = 100;
-    private static final int SCALE_MIN = 1;
+public class NoisyPointStrategy implements ImageStrategy {
+    private static final int SCALE_MIN = 8;
+    private static final int SCALE_MAX = 128;
+    private static final int SCALE_FACTOR = 10000;
     private Random random = new Random();
 
-    public void execute(int[][] data, int channels, int bitDepth) {
-        int rows = data.length;
-        int cols = data[0].length / channels;
-        int count = scale(rows, cols);
+    public void execute(BufferedImage image) {
+        int count = scale(image.getWidth(), image.getHeight());
         while (count-- > 0) {
-            int r = random.nextInt(rows);
-            int c = random.nextInt(cols);
-            for (int i = 0; i < 3; i++) {
-                int valueMax = (int) Math.pow(2, bitDepth);
-                data[r][c * channels + i] = random.nextInt(valueMax);
-            }
+            image.setRGB(random.nextInt(image.getWidth()),
+                    random.nextInt(image.getHeight()),
+                    random.nextInt() & 0xffffff);
         }
     }
 
-    private int scale(int rows, int cols) {
-        int r = (rows * cols) / 10000;
-        if (r > SCALE_MAX) {
-            r = SCALE_MAX;
+    private int scale(int width, int height) {
+        int s = width * height / SCALE_FACTOR;
+        if (s < SCALE_MIN) {
+            s = SCALE_MIN;
         }
-        if (r < SCALE_MIN) {
-            r = SCALE_MIN;
+        if (s > SCALE_MAX) {
+            s = SCALE_MAX;
         }
-        return r;
+        return s;
     }
 }
